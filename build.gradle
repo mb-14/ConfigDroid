@@ -1,13 +1,47 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'nu.studer:gradle-plugindev-plugin:1.0.4'
+    }
+}
+
+
 repositories {
     mavenCentral()
     jcenter()
     maven { url 'https://repo1.maven.org/maven2' }
 }
 apply plugin: 'groovy'
+apply plugin: 'nu.studer.plugindev'
+
 
 dependencies {
     compile 'com.squareup:javapoet:1.3.0'
     compile 'com.android.tools.build:gradle:2.3.1'
     compile gradleApi()
     compile localGroovy()
+}
+
+group = 'com.mb14.configdroid'
+version = '1.0.0.DEV'
+
+plugindev {
+    pluginImplementationClass 'com.mb14.configdroid.ConfigDroidPlugin'
+    pluginDescription 'Gradle plugin to generate config classes for your Android projects.'
+    pluginLicenses 'MIT'
+    pluginTags 'android', 'gradle-plugin', 'configuration'
+    authorId 'mb-14'
+    authorName 'Miroojin Bakshi'
+    authorEmail 'mbakshi1094@gmail.com'
+    projectUrl 'https://github.com/mb-14/ConfigDroid'
+    projectInceptionYear '2017'
+    done() // do not omit this
+}
+
+bintray {
+    user = "$BINTRAY_USER"
+    key = "$BINTRAY_API_KEY"
+    pkg.repo = 'gradle-plugins'
 }
