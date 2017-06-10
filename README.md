@@ -16,7 +16,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
-        classpath 'com.mb14:configdroid:1.0.0'
+        classpath 'com.mb14:configdroid:1.0.1'
     }
 }
 apply plugin: 'com.mb14.configdroid'

@@ -25,7 +25,7 @@ dependencies {
 }
 
 group = 'com.mb14'
-version = '1.0.0'
+version = '1.0.1'
 
 plugindev {
     pluginImplementationClass 'com.mb14.configdroid.ConfigDroidPlugin'
