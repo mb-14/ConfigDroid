@@ -13,6 +13,9 @@ Add these dependencies to your `build.gradle`:
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url  "http://dl.bintray.com/mb-14/ConfigDroid"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.1'
@@ -34,14 +37,15 @@ Global properties can be defined in the configdroid closure. You also need to de
 
 ```groovy
 configdroid {
-    className "Constants" // Default: "ConfigDroid"
-    packageName "com.example.utils"  // Default: "com.mb14.configdroid"
+    className "ConfigDroid"
+    packageName "com.mb14.configdroid"
     output "src/main/java"
     access "public" // Options: public, package-private
     
     prop "API_ENDPOINT", "https://api.twitter.com"
     prop "ENABLE_LOGGING", true
     prop "DATABASE_VERSION", 3
+    prop "API_KEY", TWITTER_API_KEY //Property defined in gradle.properties
 }
 ```
 
