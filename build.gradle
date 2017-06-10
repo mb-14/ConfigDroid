@@ -24,7 +24,7 @@ dependencies {
     compile localGroovy()
 }
 
-group = 'com.mb14.configdroid'
+group = 'com.mb14'
 version = '1.0.0'
 
 plugindev {
