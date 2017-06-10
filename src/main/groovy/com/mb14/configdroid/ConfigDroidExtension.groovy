@@ -42,7 +42,7 @@ public class ConfigDroidExtension extends ConfigClosure {
             access = this.access
             outputDir = new File(this.output)
         }
-        variant.getPreBuild().dependsOn(genEnvTask)
+        variant.getPreBuild().dependsOn(genConfigTask)
     }
 
     /**
