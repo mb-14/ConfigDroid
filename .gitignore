@@ -1,4 +1,7 @@
 .gradle
+.DS_Store
+.idea
+local.properties
 /build/
 
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
