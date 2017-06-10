@@ -33,9 +33,10 @@ Global properties can be defined in the configdroid closure. You also need to de
 
 ```groovy
 configdroid {
-    className "Constants"
-    packageName "com.example.utils"
+    className "Constants" // Default: "ConfigDroid"
+    packageName "com.example.utils"  // Default: "com.mb14.configdroid"
     output "src/main/java"
+    access "public" // Options: public, package-private
     
     prop "API_ENDPOINT", "https://api.twitter.com"
     prop "ENABLE_LOGGING", true
@@ -74,7 +75,7 @@ configdroid {
     className "Constants"
     packageName "com.example.utils"
     output "src/main/java"
-  
+    access "public"
     prop "DATABASE_VERSION", 3
     
     productFlavors {

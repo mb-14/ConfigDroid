@@ -10,9 +10,10 @@ import org.gradle.api.Project
 
 
 public class ConfigDroidExtension extends ConfigClosure {
-    String packageName;
-    String className;
-    String output;
+    String packageName = "com.mb14.configdroid"
+    String className = "ConfigDroid"
+    String output = "src/main/java"
+    String access = "public"
     NamedDomainObjectContainer<BuildTypeConfig> buildTypeConfigList;
     NamedDomainObjectContainer<ProductFlavorConfig> productFlavorConfigList;
     Project project
@@ -38,6 +39,7 @@ public class ConfigDroidExtension extends ConfigClosure {
             properties = configProperties
             className = this.className
             packageName = this.packageName
+            access = this.access
             outputDir = new File(this.output)
         }
         variant.getPreBuild().dependsOn(genEnvTask)

@@ -11,7 +11,7 @@ import javax.lang.model.element.Modifier
 
 class GenConfigTask extends DefaultTask {
     @Input
-    HashMap<String, Object> properties;
+    HashMap<String, Object> properties
 
     @OutputDirectory
     File outputDir
@@ -21,6 +21,9 @@ class GenConfigTask extends DefaultTask {
 
     @Input
     String packageName
+
+    @Input
+    String access
 
     @TaskAction
     def generateConfig() {
@@ -34,7 +37,7 @@ class GenConfigTask extends DefaultTask {
         }
         JavaFile.builder(packageName, classBuilder.build())
                 .build()
-                .writeTo(outputDir);
+                .writeTo(outputDir)
     }
 
     String getFormat(v) {
@@ -42,5 +45,12 @@ class GenConfigTask extends DefaultTask {
             return "\$S"
         }
         return "\$L"
+    }
+
+    Modifier[] getModifiers(Modifier... modifiers) {
+        if(access.equals("package-private"))
+            return modifiers
+        else
+            return modifiers.plus(Modifier.PUBLIC)
     }
 }
