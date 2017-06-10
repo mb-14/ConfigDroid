@@ -24,7 +24,7 @@ class ConfigDroidPlugin implements Plugin<Project> {
         def productFlavorConfigList = project.container(ProductFlavorConfig, new ProductFlavorConfigFactory(instantiator))
         def buildTypeConfigList = project.container(BuildTypeConfig, new BuildTypeConfigFactory(instantiator))
 
-        project.extensions.create("config", ConfigDroidExtension, project, productFlavorConfigList, buildTypeConfigList)
+        project.extensions.create("configdroid", ConfigDroidExtension, project, productFlavorConfigList, buildTypeConfigList)
 
         if (AndroidUtils.isApplicationProject(project)) {
             project.android.applicationVariants.all { variant ->
