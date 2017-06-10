@@ -28,12 +28,12 @@ class ConfigDroidPlugin implements Plugin<Project> {
 
         if (AndroidUtils.isApplicationProject(project)) {
             project.android.applicationVariants.all { variant ->
-                project.config.injectTask(variant);
+                project.configdroid.injectTask(variant);
             }
         }
         else if (AndroidUtils.isLibraryProject(project)) {
             project.android.libraryVariants.all { variant ->
-                project.config.injectTask(variant);
+                project.configdroid.injectTask(variant);
             }
         }
     }
