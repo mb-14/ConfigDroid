@@ -43,5 +43,5 @@ plugindev {
 bintray {
     user = "$BINTRAY_USER"
     key = "$BINTRAY_API_KEY"
-    pkg.repo = 'gradle-plugins'
+    pkg.repo = 'ConfigDroid'
 }
