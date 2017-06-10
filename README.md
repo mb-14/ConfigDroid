@@ -1,5 +1,6 @@
 ConfigDroid
 ===
+[ ![Download](https://api.bintray.com/packages/mb-14/ConfigDroid/configdroid/images/download.svg) ](https://bintray.com/mb-14/ConfigDroid/configdroid/_latestVersion)
 
 ConfigDroid is a gradle plugin for Android Projects which lets you access configuration properties defined in your `build.gradle` file in the form of constants generated in a java class.
 
