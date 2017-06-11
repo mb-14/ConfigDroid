@@ -39,7 +39,6 @@ Global properties can be defined in the configdroid closure. You also need to de
 configdroid {
     className "ConfigDroid"
     packageName "com.mb14.configdroid"
-    output "src/main/java"
     access "public" // Options: public, package-private
     
     prop "API_ENDPOINT", "https://api.twitter.com"
@@ -49,7 +48,7 @@ configdroid {
 }
 ```
 
-This generates the following source code in `src/main/java/com/example/utils/Constants.java`:
+This generates the following source code in `ConfigDroid.java`
 
 ```java
 package com.example.utils;
@@ -64,6 +63,8 @@ public class Constants {
   public static final Boolean ENABLE_LOGGING = true;
   
   public static final Integer DATABASE_VERSION = 3;
+
+  public static final String "API_KEY" = "hvtcOOoFM4";
 }
 
 
@@ -79,7 +80,6 @@ You can define config properties specific to product flavors and build variants 
 configdroid {
     className "Constants"
     packageName "com.example.utils"
-    output "src/main/java"
     access "public"
     prop "DATABASE_VERSION", 3
     

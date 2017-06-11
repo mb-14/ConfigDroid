@@ -12,7 +12,6 @@ import org.gradle.api.Project
 public class ConfigDroidExtension extends ConfigClosure {
     String packageName = "com.mb14.configdroid"
     String className = "ConfigDroid"
-    String output = "src/main/java"
     String access = "public"
     NamedDomainObjectContainer<BuildTypeConfig> buildTypeConfigList;
     NamedDomainObjectContainer<ProductFlavorConfig> productFlavorConfigList;
@@ -35,14 +34,15 @@ public class ConfigDroidExtension extends ConfigClosure {
     void injectTask(BaseVariant variant) {
         HashMap<String, Object> configProperties = getMergedProperties(variant)
         def genConfigTask = project.tasks.create("genConfig${variant.name.capitalize()}", GenConfigTask)
+        def output = new File("$project.buildDir/generated/source/configdroid/${variant.dirName}");
         genConfigTask.configure {
             properties = configProperties
             className = this.className
             packageName = this.packageName
             access = this.access
-            outputDir = new File(this.output)
+            outputDir = output
         }
-        variant.getPreBuild().dependsOn(genConfigTask)
+        variant.registerJavaGeneratingTask(genConfigTask, output)
     }
 
     /**
