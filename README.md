@@ -51,13 +51,13 @@ configdroid {
 This generates the following source code in `ConfigDroid.java`
 
 ```java
-package com.example.utils;
+package com.mb14.configdroid;
 
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
 
-public class Constants {
+public class ConfigDroid {
   public static final String API_ENDPOINT = "https://api.twitter.com";
 
   public static final Boolean ENABLE_LOGGING = true;
