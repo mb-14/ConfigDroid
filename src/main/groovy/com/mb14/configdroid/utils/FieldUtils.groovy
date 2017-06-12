@@ -68,7 +68,7 @@ class FieldUtils {
         return simpleName ==~ /^[a-zA-Z_$][a-zA-Z_$0-9]*\[\]$/
     }
 
-    private String getFormattedValue(Object object, String simpleName) {
+    static String getFormattedValue(Object object, String simpleName) {
         if (object instanceof List) {
             List<?> objects = (List) object;
             String value = String.format("new %s[]{", simpleName)

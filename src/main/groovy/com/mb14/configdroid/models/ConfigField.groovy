@@ -29,7 +29,7 @@ class ConfigField implements Serializable {
         this.isList = value instanceof List
         this.packageName = fieldClass.getPackage().getName()
         this.simpleName = fieldClass.getSimpleName()
-        this.value = getFormattedValue(value)
+        this.value = FieldUtils.getFormattedValue(value, simpleName)
     }
 
     TypeName getType() {
