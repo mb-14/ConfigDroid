@@ -106,3 +106,30 @@ configdroid {
     }
 }
 ```
+
+### Possible property types
+```groovy
+configdroid {
+    // Primitives
+    prop "API_ENDPOINT", "http://api.twitter.com"
+    prop "ENABLE_LOGGING", true
+    prop "DATABASE_VERSION", 3
+    prop "API_TOKEN", TWITTER_API_TOKEN //Property defined in gradle.properties
+    prop "FLOAT_CONSTANT", 9.8f
+    prop "DOUBLE_CONSTANT", 9.8d
+    prop "LONG_CONSTANT", 122424343535l
+    prop "CHAR_CONSTANT", 'a' as char
+    prop "BYTE_CONSTANT", 0b11 as byte
+    prop 'BUILD_UNIXTIME', System.currentTimeMillis()
+
+    // Arrays
+    prop "STRING_ARRAY", ["hello", "world"]
+    prop "INT_ARRAY", [1,2,3,4]
+    prop "DOUBLE_ARRAY", [9.8d, 24.34d, 44.44d]
+
+    // Custom objects and initializations
+    prop 'java.util.Date', 'BUILD_DATE', 'new Date(' + System.currentTimeMillis() + 'L)'
+    prop 'boolean', "REQUEST_RUNTIME_PERM", 'android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M'
+    prop 'int', 'THEME_COLOR', 'android.graphics.Color.parseColor(\"ff0000\")'
+}
+```
