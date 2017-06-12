@@ -4,7 +4,9 @@ import com.android.build.gradle.api.BaseVariant
 import com.android.builder.model.ProductFlavor
 import com.mb14.configdroid.models.BuildTypeConfig
 import com.mb14.configdroid.models.ConfigClosure
+import com.mb14.configdroid.models.ConfigField
 import com.mb14.configdroid.models.ProductFlavorConfig
+import com.mb14.configdroid.utils.FieldUtils
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 
@@ -32,7 +34,7 @@ public class ConfigDroidExtension extends ConfigClosure {
     }
 
     void injectTask(BaseVariant variant) {
-        HashMap<String, Object> configProperties = getMergedProperties(variant)
+        HashMap<String, ConfigField> configProperties = getMergedProperties(variant)
         def genConfigTask = project.tasks.create("genConfig${variant.name.capitalize()}", GenConfigTask)
         def output = new File("$project.buildDir/generated/source/configdroid/${variant.dirName}");
         genConfigTask.configure {
@@ -45,25 +47,13 @@ public class ConfigDroidExtension extends ConfigClosure {
         variant.registerJavaGeneratingTask(genConfigTask, output)
     }
 
-    /**
-     * Merge patch into target without overriding existing keys
-     * Preference order: build type > product flavor > global
-     * @param target
-     * @param patch
-     */
-    void mergeMap(HashMap target, HashMap patch) {
-        Map tmp = new HashMap(patch);
-        tmp.keySet().removeAll(target.keySet());
-        target.putAll(tmp);
-    }
-
-    Map<String, Object> getMergedProperties(BaseVariant variant) {
-        HashMap<String, Object> properties = new HashMap<>();
+    Map<String, ConfigField> getMergedProperties(BaseVariant variant) {
+        HashMap<String, ConfigField> properties = new HashMap<>();
         BuildTypeConfig buildTypeConfig = buildTypeConfigList.findByName(variant.getBuildType().name)
 
         // Merge build type properties
         if (buildTypeConfig) {
-            mergeMap(properties, buildTypeConfig.getProperties())
+            FieldUtils.mergeMap(properties, buildTypeConfig.getProperties())
         }
 
         // Merge product flavor properties
@@ -71,12 +61,12 @@ public class ConfigDroidExtension extends ConfigClosure {
         productFlavors.each { productFlavor ->
             ProductFlavorConfig productFlavorConfig = productFlavorConfigList.findByName(productFlavor.name)
             if (productFlavorConfig) {
-                mergeMap(properties, productFlavorConfig.getProperties())
+                FieldUtils.mergeMap(properties, productFlavorConfig.getProperties())
             }
         }
 
         // Merge global properties
-        mergeMap(properties, getProperties())
+        FieldUtils.mergeMap(properties, getProperties())
 
         return properties;
 
