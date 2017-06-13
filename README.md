@@ -9,7 +9,7 @@ ConfigDroid is a gradle plugin for Android Projects which lets you access config
 
 Add these dependencies to your `build.gradle`:
 
-```groovy
+```gradle
 buildscript {
     repositories {
         jcenter()
@@ -64,7 +64,7 @@ public class ConfigDroid {
   
   public static final Integer DATABASE_VERSION = 3;
 
-  public static final String "API_KEY" = "hvtcOOoFM4";
+  public static final String API_KEY = "hvtcOOoFM4";
 }
 
 
@@ -76,7 +76,7 @@ public class ConfigDroid {
 You can define config properties specific to product flavors and build variants as well. You can use the same key in different variants and ConfigDroid will override the values in the following order: global < product flavor < build type
 
 
-```groovy 
+```gradle 
 configdroid {
     className "Constants"
     packageName "com.example.utils"
@@ -108,7 +108,7 @@ configdroid {
 ```
 
 ### Possible property types
-```groovy
+```gradle
 configdroid {
     // Primitives
     prop "API_ENDPOINT", "http://api.twitter.com"
