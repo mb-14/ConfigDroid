@@ -2,6 +2,8 @@ ConfigDroid
 ===
 [ ![Download](https://api.bintray.com/packages/mb-14/ConfigDroid/configdroid/images/download.svg) ](https://bintray.com/mb-14/ConfigDroid/configdroid/_latestVersion)
 
+[![Build Status](https://travis-ci.org/mb-14/ConfigDroid.svg?branch=master)](https://travis-ci.org/mb-14/ConfigDroid)
+
 ConfigDroid is a gradle plugin for Android Projects which lets you access configuration properties defined in your `build.gradle` file in the form of constants generated in a java class.
 
 
