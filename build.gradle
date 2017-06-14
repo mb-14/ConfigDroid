@@ -41,7 +41,7 @@ plugindev {
 }
 
 bintray {
-    user = "$BINTRAY_USER"
-    key = "$BINTRAY_API_KEY"
+    user = hasProperty('BINTRAY_USER') ? BINTRAY_USER : System.getenv('BINTRAY_USER')
+    key = hasProperty('BINTRAY_API_KEY') ? BINTRAY_API_KEY : System.getenv('BINTRAY_API_KEY')
     pkg.repo = 'ConfigDroid'
 }
