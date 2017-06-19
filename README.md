@@ -109,6 +109,13 @@ configdroid {
 }
 ```
 
+### Embed file contents as String constants 
+
+```gradle
+configdroid {
+    file "JS_SCRIPT", file('webview_inject.js')
+}
+
 ### Possible property types
 ```gradle
 configdroid {
