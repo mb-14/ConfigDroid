@@ -3,7 +3,7 @@ import com.mb14.configdroid.utils.FieldUtils
 
 class ConfigClosure {
 
-    Map<String, ConfigField> properties = new HashMap<>();
+    Map<String, BaseField> fields = new HashMap<>();
 
     public void prop(String key, String value) {
         addProperty(key, value, String.class)
@@ -44,8 +44,12 @@ class ConfigClosure {
         addProperty(type, key, value)
     }
 
-    Map<String, ConfigField> getProperties() {
-        return properties;
+    public void file(String key, File file) {
+        addFile(key, file);
+    }
+
+    HashMap<String, BaseField> getFields() {
+        return fields;
     }
 
     private void addProperty(String key, Object value, Class clazz) {
@@ -53,14 +57,24 @@ class ConfigClosure {
             clazz = FieldUtils.getListType(value)
             if (clazz == null)
                 return
+            fields.put(key, new ListField(clazz, value))
         }
-        ConfigField configField = new ConfigField(clazz, value)
-        properties.put(key, configField)
+        else {
+            fields.put(key, new PropField(clazz, value))
+        }
     }
 
     private void addProperty(String type, String key, String value) {
-        ConfigField configField = new ConfigField(type, value)
-        properties.put(key, configField)
+        if (FieldUtils.isArrayNotation(FieldUtils.getSimpleName(type))) {
+            fields.put(key, new ListField(type, value))
+        }
+        else {
+            fields.put(key, new PropField(type, value))
+        }
+    }
+
+    private void addFile(String key, File file) {
+        fields.put(key, new FileField(file));
     }
 
 }

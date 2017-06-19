@@ -2,9 +2,10 @@ package com.mb14.configdroid
 
 import com.android.build.gradle.api.BaseVariant
 import com.android.builder.model.ProductFlavor
+import com.mb14.configdroid.models.BaseField
 import com.mb14.configdroid.models.BuildTypeConfig
 import com.mb14.configdroid.models.ConfigClosure
-import com.mb14.configdroid.models.ConfigField
+import com.mb14.configdroid.models.PropField
 import com.mb14.configdroid.models.ProductFlavorConfig
 import com.mb14.configdroid.utils.FieldUtils
 import org.gradle.api.NamedDomainObjectContainer
@@ -34,11 +35,11 @@ public class ConfigDroidExtension extends ConfigClosure {
     }
 
     void injectTask(BaseVariant variant) {
-        HashMap<String, ConfigField> configProperties = getMergedProperties(variant)
+        HashMap<String, PropField> configFields = getMergedFields(variant)
         def genConfigTask = project.tasks.create("genConfig${variant.name.capitalize()}", GenConfigTask)
         def output = new File("$project.buildDir/generated/source/configdroid/${variant.dirName}");
         genConfigTask.configure {
-            properties = configProperties
+            fields = configFields
             className = this.className
             packageName = this.packageName
             access = this.access
@@ -47,28 +48,27 @@ public class ConfigDroidExtension extends ConfigClosure {
         variant.registerJavaGeneratingTask(genConfigTask, output)
     }
 
-    Map<String, ConfigField> getMergedProperties(BaseVariant variant) {
-        HashMap<String, ConfigField> properties = new HashMap<>();
+    Map<String, PropField> getMergedFields(BaseVariant variant) {
+        HashMap<String, BaseField> fields = new HashMap<>();
         BuildTypeConfig buildTypeConfig = buildTypeConfigList.findByName(variant.getBuildType().name)
 
-        // Merge build type properties
+        // Merge build type fields
         if (buildTypeConfig) {
-            FieldUtils.mergeMap(properties, buildTypeConfig.getProperties())
+            FieldUtils.mergeMap(fields, buildTypeConfig.getFields())
         }
 
-        // Merge product flavor properties
+        // Merge product flavor fields
         List<ProductFlavor> productFlavors = variant.getProductFlavors()
         productFlavors.each { productFlavor ->
             ProductFlavorConfig productFlavorConfig = productFlavorConfigList.findByName(productFlavor.name)
             if (productFlavorConfig) {
-                FieldUtils.mergeMap(properties, productFlavorConfig.getProperties())
+                FieldUtils.mergeMap(fields, productFlavorConfig.getFields())
             }
         }
 
-        // Merge global properties
-        FieldUtils.mergeMap(properties, getProperties())
+        // Merge global fields
+        FieldUtils.mergeMap(fields, getFields())
 
-        return properties;
-
+        return fields;
     }
 }

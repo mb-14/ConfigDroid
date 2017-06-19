@@ -1,6 +1,6 @@
 package com.mb14.configdroid.utils
 
-import com.mb14.configdroid.models.ConfigField
+import com.mb14.configdroid.models.PropField
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.TypeName
 
@@ -42,7 +42,7 @@ class FieldUtils {
         return list.get(0).class
     }
 
-    static TypeName getClassType(ConfigField configField) {
+    static TypeName getClassType(PropField configField) {
         if (configField.packageName == null || configField.packageName.isEmpty()) {
             return PRIMITIVE_MAP.containsKey(configField.simpleName) ?
                     PRIMITIVE_MAP.get(configField.simpleName) : TypeName.forName(configField.simpleName)
@@ -69,15 +69,6 @@ class FieldUtils {
     }
 
     static String getFormattedValue(Object object, String simpleName) {
-        if (object instanceof List) {
-            List<?> objects = (List) object;
-            String value = String.format("new %s[]{", simpleName)
-            for (int i = 0; i < objects.size() - 1; i++) {
-                value += getFormattedValue(objects[i], simpleName) + ","
-            }
-            value += getFormattedValue(objects[objects.size() - 1], simpleName) + "}"
-            return value
-        }
         return VALUE_FORMAT_MAP.containsKey(simpleName) ?
                 String.format(VALUE_FORMAT_MAP.get(simpleName), object) : String.valueOf(object)
     }
