@@ -115,6 +115,7 @@ configdroid {
 configdroid {
     file "JS_SCRIPT", file('webview_inject.js')
 }
+```
 
 ### Possible property types
 ```gradle
